@@ -3,7 +3,17 @@ import java.awt.*;
 public class CharacterSprite extends DynamicSprite {
 
     private int lifePoints;
+
     private boolean immunity;
+    private long lastStartOfImmunity;
+
+    public long getLastStartOfImmunity() {
+        return lastStartOfImmunity;
+    }
+
+    public void setLastStartOfImmunity(long lastStartOfImmunity) {
+        this.lastStartOfImmunity = lastStartOfImmunity;
+    }
 
     public boolean getImmunity() {
         return immunity;
@@ -35,7 +45,6 @@ public class CharacterSprite extends DynamicSprite {
             } else {
                 this.lifePoints = lifePoints;
             }
-
         }
     }
 }

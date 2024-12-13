@@ -1,13 +1,19 @@
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
 
 public class GameEngine implements Engine, KeyListener {
     CharacterSprite hero;
     ArrayList<CharacterSprite> enemies = new ArrayList<CharacterSprite>();
 
     long immunityDurationInMilliseconds = 2000;
-    long lastStartOfImmunity;
+
+    long xWinCondition = 800;
 
     int currentLevel;
 
@@ -55,14 +61,19 @@ public class GameEngine implements Engine, KeyListener {
 
     @Override
     public void update() {
+
+        if (hero.x >= this.xWinCondition) {
+            currentLevel = -2;
+        }
+
         //System.out.println(hero.getImmunity());
         //System.out.println(hero.getLifePoints());
 
         long now = System.currentTimeMillis();
-        if ((now - lastStartOfImmunity) > immunityDurationInMilliseconds) {
+        if ((now - hero.getLastStartOfImmunity()) > immunityDurationInMilliseconds) {
             hero.setImmunity(false);
         }
-
+        
         for (CharacterSprite enemy : enemies) {
             moveEnemyTowardsHero(enemy);
 
@@ -80,7 +91,7 @@ public class GameEngine implements Engine, KeyListener {
                 }
 
                 if(!hero.getImmunity()){
-                    this.lastStartOfImmunity = System.currentTimeMillis();
+                    hero.setLastStartOfImmunity(System.currentTimeMillis());
                     hero.setImmunity(true);
                 }
 

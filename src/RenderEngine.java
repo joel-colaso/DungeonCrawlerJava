@@ -79,6 +79,24 @@ public class RenderEngine extends JPanel implements Engine{
             int y2 = (getHeight() / 10)*6;
             g.drawString(message2, x2, y2);
 
+        } else if (gameEngine.getCurrentLevel() == -2) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, getWidth(), getHeight());
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("Arial", Font.BOLD, 50));
+            String message = "YOU WIN";
+            FontMetrics metrics = g.getFontMetrics();
+            int x = (getWidth() - metrics.stringWidth(message)) / 2;
+            int y = getHeight() / 2;
+
+            g.drawString(message, x, y);
+            g.setColor(Color.ORANGE);
+            g.setFont(new Font("Arial", Font.BOLD, 30));
+            String message2 = "Thanks for playing!";
+            FontMetrics metrics2 = g.getFontMetrics();
+            int x2 = (getWidth() - metrics2.stringWidth(message2)) / 2;
+            int y2 = (getHeight() / 10)*6;
+            g.drawString(message2, x2, y2);
         }
     }
 

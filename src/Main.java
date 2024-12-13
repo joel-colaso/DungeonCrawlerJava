@@ -12,23 +12,26 @@ public class Main {
     GameEngine gameEngine;
     PhysicEngine physicEngine;
 
-    public Main() throws Exception{
+    public Main() throws Exception {
         displayZoneFrame = new JFrame("Java Labs");
         displayZoneFrame.setSize(800,600);
         displayZoneFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        CharacterSprite hero = new CharacterSprite(200,300,
+        CharacterSprite hero = new CharacterSprite(100,300,
                 ImageIO.read(new File("./img/heroTileSheetLowRes.png")),
+                48,50, 7.5, false, 5);
+
+        CharacterSprite enemy = new CharacterSprite(650,100,
+                ImageIO.read(new File("./img/redEnemyTileSheetLowRes.png")),
                 48,50, 5, false, 5);
 
-
-        CharacterSprite enemy = new CharacterSprite(100,300,
+        CharacterSprite enemy2 = new CharacterSprite(650,375,
                 ImageIO.read(new File("./img/redEnemyTileSheetLowRes.png")),
-                48,50, 1, false, 5);
+                48,50, 5, false, 5);
 
-        CharacterSprite ghost = new CharacterSprite(100,200,
-                ImageIO.read(new File("./img/blueEnemyTileSheetLowRes.png")),
-                48,50, 1, true, 5);
+        CharacterSprite ghost = new CharacterSprite(200,200,
+                ImageIO.read(new File("./img/ghostEnemyTileSheet.png")),
+                48,50, 3, true, 5);
 
         gameEngine = new GameEngine(hero);
         gameEngine.setCurrentLevel(1);
@@ -36,6 +39,7 @@ public class Main {
         physicEngine = new PhysicEngine();
 
         gameEngine.addToEnemiesList(enemy);
+        gameEngine.addToEnemiesList(enemy2);
         gameEngine.addToEnemiesList(ghost);
 
         Timer renderTimer = new Timer(50,(time)-> renderEngine.update());
@@ -59,6 +63,9 @@ public class Main {
         renderEngine.addToRenderList(enemy);
         physicEngine.addToMovingSpriteList(enemy);
 
+        renderEngine.addToRenderList(enemy2);
+        physicEngine.addToMovingSpriteList(enemy2);
+
         renderEngine.addToRenderList(ghost);
         physicEngine.addToMovingSpriteList(ghost);
 
@@ -68,7 +75,6 @@ public class Main {
     }
 
     public static void main (String[] args) throws Exception {
-	// write your code here
         Main main = new Main();
     }
 }
